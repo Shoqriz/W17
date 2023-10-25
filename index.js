@@ -20,21 +20,6 @@ const connectDB = async () => {
   }
 }
 
-module.exports = {
-  connectToDb: (cb) => {
-    MongoClient.connect(uri)
-      .then((client) => {
-        dbConnection = client.db()
-        return cb()
-      })
-      .catch((err) => {
-        console.log(err)
-        return cb(err)
-      })
-  },
-  getDb: () => dbConnection
-}
-
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: 'https://week-17-shoqri.web.app' }));
