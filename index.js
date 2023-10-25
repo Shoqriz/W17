@@ -3,8 +3,6 @@ const cookieParser = require('cookie-parser');
 const indexRoutes = require('./routes/index');
 const cors = require('cors');
 const app = express();
-const functions = require('firebase-functions');
-const logger = require("firebase-functions/logger");
 
 const { MongoClient } = require('mongodb');
 
@@ -33,5 +31,3 @@ app.use(cookieParser());
 app.use(cors({ origin: 'https://week-17-shoqri.web.app' }));
 
 app.use('/', indexRoutes);
-
-exports.week_17_shoqriz = functions.https.onRequest(app);
