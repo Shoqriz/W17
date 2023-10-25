@@ -3,11 +3,22 @@ const cookieParser = require('cookie-parser');
 const indexRoutes = require('./routes/index');
 const cors = require('cors');
 const app = express();
+const mongoose = require('mongoose');
 
-const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-let dbConnection
-let uri = "mongodb+srv://zidan:67gSGw34Q6FllS0O@nodeapi.ndcxh2c.mongodb.net/?retryWrites=true&w=majority";
+const PORT = process.env.PORT || 3000;
+
+mongoose.set('strictQuery', false);
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 
 module.exports = {
   connectToDb: (cb) => {
@@ -25,13 +36,12 @@ module.exports = {
 }
 
 app.use(express.json());
-
 app.use(cookieParser());
-
 app.use(cors({ origin: 'https://week-17-shoqri.web.app' }));
-
 app.use('/', indexRoutes);
 
-app.listen(3000, () => {
-  console.log("Server berjalan di port 3000");
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+  })
 });
