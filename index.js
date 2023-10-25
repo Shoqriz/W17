@@ -31,3 +31,7 @@ app.use(cookieParser());
 app.use(cors({ origin: 'https://week-17-shoqri.web.app' }));
 
 app.use('/', indexRoutes);
+
+app.listen(3000, () => {
+  console.log("Server berjalan di port 3000");
+});
