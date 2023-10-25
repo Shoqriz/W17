@@ -22,7 +22,7 @@ const connectDB = async () => {
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: 'https://week-17-shoqri.web.app' }));
+app.use(cors({ origin: 'https://week-17-shoqri.web.app', credentials: true }));
 app.use('/', indexRoutes);
 
 connectDB().then(() => {
